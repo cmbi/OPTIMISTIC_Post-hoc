@@ -1,4 +1,4 @@
-All R scripts used in the published OPTIMISTIC post-hoc paper can be found in this repository:
+R scripts used to generate the results as presented in the OPTIMISTIC post-hoc paper: "Posthoc analysis of the OPTIMISTIC trial reveals new insights into the relationship of DM1-Activ-c with other common outcome measures".
 
 *OPH Baseline patient characteristics: Used for exploratory dataset analyses
 *OPH Correlation analyses: Cross-sectional as well as intervention driven longitudinal Spearman's Rank correlations of outcome measurements used in the OPTIMISTIC trial.
