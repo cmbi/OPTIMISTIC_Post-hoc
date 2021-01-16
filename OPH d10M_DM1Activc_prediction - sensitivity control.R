@@ -112,7 +112,7 @@ colnames(bdf) <- gsub(x = colnames(bdf), pattern = "V2", replacement = "")
 bdf <- sapply(bdf[,1:length(colnames(bdf))], function(x){as.numeric(as.character(x))})
 bdf <- as.data.frame(bdf)
 
-# Subset the intervention group #n=127
+# Subset the control group #n=127
 bdf <- bdf[df$TreatmentCode==0,] 
 
 
