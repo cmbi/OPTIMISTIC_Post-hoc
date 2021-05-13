@@ -1,5 +1,5 @@
-# Script run with R version 3.5.1 (2018-07-12)
-# Last changes applied on: 09/08/2020
+# Script run with R version 4.0.5 (2021-03-31) 
+# Last changes applied on: 30/04/2021: updated R version and packages
 
 ## purpose of analysis: identification of variables associated with CBT treatment
 ## dependent variable: delta-DM1-Activ-C (10M vs baseline)
@@ -7,6 +7,7 @@
 ## excluding of patients with maximum baseline score of delta-DM1-Acitv-c
 ## in addition to primary/secondary outcome variables, patient/genetic variables, effect modifiers and treatment related variables are included
 
+RNGkind(sample.kind = "Rounding") #conforms seed based sampling to earlier R versions
 set.seed(1) # Allows reproducability
 
 ###############
@@ -14,12 +15,12 @@ set.seed(1) # Allows reproducability
 ###############
 
 library("readxl") #V 1.3.1
-library("dplyr")  #V 0.8.5
-library("glmnet") #V 2.0.16
-library("mice")   #V 3.4.0 
-library("boot")   #V 1.3.20
+library("dplyr")  #V 1.0.5
+library("glmnet") #V 4.1.1
+library("mice")   #V 3.13.0 
+library("boot")   #V 1.3.27
 library("gvlma")  #V 1.0.0.3
-library("car")    #V 3.0.7
+library("car")    #V 3.0.10
 
 ###############
 ## Functions ##
@@ -274,6 +275,15 @@ cdf <- NULL
 
 
 ############################
+## Correlational analysis ##
+############################
+# understanding the variable nIndications
+cor(bdf$nIndications, bdf$DM1ActivC, method = "spearman", use = "complete.obs")
+cor(bdf$nIndications, bdf$SMWT, method = "spearman", use = "complete.obs")
+cor(bdf$nIndications, bdf$MDHI, method = "spearman", use = "complete.obs")
+
+
+############################
 ## Missing Value analysis ##
 ############################
 
@@ -355,13 +365,13 @@ row.names(t_selected_pred) <- gsub(x = row.names(t_selected_pred), pattern = "SM
 t_selected_pred[order(-t_selected_pred$Mean),]
 t_selected_pred <- t_selected_pred * 100
 t_selected_pred$Mean <- round(t_selected_pred$Mean, 0)
-write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "C:/Users/Daniel.vanAs/Documents/OPTIMISTIC Post-Hoc Paper R Scripts/Results/OPH_DM1Activc_VIPs.csv", row.names = TRUE)
-write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "C:/Users/Daniel.vanAs/Documents/OPTIMISTIC Post-Hoc Paper R Scripts/Results/OPH_DM1Activc_VIPs.xlsx", row.names = TRUE)
+write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "OPH_DM1Activc_VIPs.csv", row.names = TRUE)
+write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "OPH_DM1Activc_VIPs.xlsx", row.names = TRUE)
 
 ## Create regression formula
 formula <- paste(predictors, collapse = " + ")
 formula <- paste("ddm1a", formula, sep=" ~ ")
-  
+
 ## Build model & check linear regression assumptions
 fit <- lm(as.formula(formula), data=bdf)
 gvlma(fit)
