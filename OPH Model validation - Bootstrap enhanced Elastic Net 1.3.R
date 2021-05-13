@@ -1,8 +1,9 @@
-# Script run with R version 3.5.1 (2018-07-12)
-# Last changes applied on: 30/07/2020
+# Script run with R version 4.0.5 (2021-03-31) 
+# Last changes applied on: 29/04/2020: updated R version and packages
 
 # Script used to validate the Bootstrap enhanced Elsatic-Net approach for variable selection in the OPTIMISTIC dataset
 
+RNGkind(sample.kind = "Rounding") #conforms seed based sampling to earlier R versions
 set.seed(1)
 
 ####################
@@ -10,12 +11,12 @@ set.seed(1)
 ####################
 
 library("readxl")       #V 1.3.1
-library("dplyr")        #V 0.8.5
-library("MASS")         #V 7.3.51.5
-library("glmnet")       #V 2.0.16
-library("boot")         #V 1.3.20
-library("ggplot2")      #V 3.1.1
-library("gridExtra")    #V 2.3
+library("dplyr")        #V 1.0.5
+library("MASS")         #V 7.3.53.1
+library("glmnet")       #V 4.1.1
+library("boot")         #V 1.3.27
+library("ggplot2")      #V 3.3.3
+library("gridExtra")    #V 2.3 
 library("reshape2")     #V 1.4.4
 
 ###############
@@ -294,14 +295,14 @@ for (x in c("Full", "Intervention")){
            labs(x="", y="Adjusted R-squared", tag=plottags[1]) +
            theme(
              panel.border = element_rect(colour="black", fill = NA, size = 0.4),
-             axis.text = element_text(size = 10),
-             axis.title = element_text(colour="black", size = 10, face="bold"),
-             plot.title = element_text(colour="black", size = 10, face="bold"),
+             axis.text = element_text(size = 15),
+             axis.title = element_text(colour="black", size = 17, face="bold"),
+             plot.title = element_text(colour="black", size = 17, face="bold"),
              plot.tag.position = "topleft",
-             plot.tag = element_text(size=10, face="bold"),
+             plot.tag = element_text(size=25, face="bold"),
              panel.background = element_rect(fill="white"),
-             plot.margin=unit(c(0.1,0.1,0.1,0.1), "cm"),
-             aspect.ratio = 1
+             aspect.ratio = 1,
+             plot.margin=unit(c(0.5,0.5,0.5,0.5), "cm")
            ))
   
   assign(paste(x, "rsme", sep="_"), 
@@ -312,15 +313,15 @@ for (x in c("Full", "Intervention")){
            ggtitle(paste(x, "cohort")) +
            theme(
              panel.border = element_rect(colour="black", fill = NA, size = 0.4),
-             axis.text = element_text(size = 10),
-             axis.title = element_text(colour="black", size = 10, face="bold"),
-             plot.title = element_text(colour="black", size = 10, face="bold"),
+             axis.text = element_text(size = 15),
+             axis.title = element_text(colour="black", size = 17, face="bold"),
+             plot.title = element_text(colour="black", size = 17, face="bold"),
              plot.tag.position = "topleft",
-             plot.tag = element_text(size=10, face="bold"),
+             plot.tag = element_text(size=25, face="bold"),
              panel.background = element_rect(fill="white"),
-             plot.margin=unit(c(0.1,0.1,0.1,0.1), "cm"),
-             aspect.ratio = 1
-             ))
+             aspect.ratio = 1,
+             plot.margin=unit(c(0.5,0.5,0.5,0.5), "cm")
+           ))
   
   ############################################################
   ## Calculate mean a-rsq and rsme values and store results ## 
@@ -362,8 +363,8 @@ row.names(mean_est) <- resultrownames
 ## Visualize a-rsq and rsme heterogeneity in one plot ##
 ########################################################
 
-g <- arrangeGrob(Full_radj, Intervention_radj, Full_rsme, Intervention_rsme)
-ggsave(file="OPH_validation.tiff", g, width=17, height = 18.5, unit="cm", dpi=300)
+grid.arrange(Full_radj, Intervention_radj, Full_rsme, Intervention_rsme, ncol=2, nrow=2)
+
 
 
 
