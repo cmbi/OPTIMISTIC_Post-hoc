@@ -1,5 +1,5 @@
-# Script run with R version 3.5.1 (2018-07-12)
-# Last changes applied on: 22/09/2020
+# Script run with R version 4.0.5 (2021-03-31)
+# Last changes applied on: 30/04/2021
 
 ## purpose of analysis: sensitivity analysis for delta-DM1-Activ-c predictors; repeating the main analysis for the control group
 ## dependent variable: delta-DM1-Activ-C (10M vs baseline)
@@ -7,6 +7,7 @@
 ## excluding of patients with maximum baseline score of delta-DM1-Acitv-c
 ## in addition to primary/secondary outcome variables, patient/genetic variables, effect modifiers and treatment related variables are included
 
+RNGkind(sample.kind = "Rounding") #conforms seed based sampling to earlier R versions
 set.seed(1) # Allows reproducability
 
 ###############
@@ -14,12 +15,12 @@ set.seed(1) # Allows reproducability
 ###############
 
 library("readxl") #V 1.3.1
-library("dplyr")  #V 0.8.5
-library("glmnet") #V 2.0.16
-library("mice")   #V 3.4.0 
-library("boot")   #V 1.3.20
+library("dplyr")  #V 1.0.5
+library("glmnet") #V 4.1.1
+library("mice")   #V 3.13.0
+library("boot")   #V 1.3.27
 library("gvlma")  #V 1.0.0.3
-library("car")    #V 3.0.7
+library("car")    #V 3.0.10
 
 ###############
 ## Functions ##
@@ -116,7 +117,6 @@ bdf <- as.data.frame(bdf)
 bdf <- bdf[df$TreatmentCode==0,] 
 
 
-
 #######################
 ## Handling outliers ##
 #######################
@@ -177,9 +177,6 @@ bdf$AESI <- NULL
 bdf$CTGDiagnostic <- NULL
 
 
-
-
-
 ##################################
 ## Imputation of missing values ##
 ##################################
@@ -212,9 +209,9 @@ for (i in 1:10){
 }
 
 
-########################
-## Build linear model ##
-########################
+################
+## Store VIPs ##
+################
 
 ## Select imputation independent frequently selected variables | inclusion frequency >= 60%
 cm <- colMeans(selected_pred)
@@ -224,15 +221,14 @@ predictors <- predictors[predictors != "Intercept"]
 ## Add mean frequencies to predictor dataframe & print+store ordered table
 selected_pred <- rbind(selected_pred, cm)
 row.names(selected_pred) <- c(1:10, "Mean")
-
-
 t_selected_pred <- as.data.frame(t(selected_pred))
 row.names(t_selected_pred) <- gsub(x = row.names(t_selected_pred), pattern = "SMWT", replacement = "6MWT")
 t_selected_pred[order(-t_selected_pred$Mean),]
 t_selected_pred <- t_selected_pred * 100
 t_selected_pred$Mean <- round(t_selected_pred$Mean, 0)
-write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "C:/Users/Daniel.vanAs/Documents/OPTIMISTIC Post-Hoc Paper R Scripts/OPTIMISTIC Post-Hoc Analyses Daniel van As/Results/OPH_DM1Activc_senscontrol_VIPs.csv", row.names = TRUE)
-write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "C:/Users/Daniel.vanAs/Documents/OPTIMISTIC Post-Hoc Paper R Scripts/OPTIMISTIC Post-Hoc Analyses Daniel van As/Results/OPH_DM1Activc_senscontrol_VIPs.xlsx", row.names = TRUE)
+
+write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "OPH_dDM1Activc_senscontrol_VIPs.csv", row.names = TRUE)
+write.csv(t_selected_pred[order(-t_selected_pred$Mean),], "OPH_dDM1Activc_senscontrol_VIPs.xlsx", row.names = TRUE)
 
 
 
