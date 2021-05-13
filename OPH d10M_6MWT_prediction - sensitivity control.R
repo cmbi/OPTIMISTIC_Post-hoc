@@ -153,7 +153,7 @@ cdf <- NULL
 ############################
 
 # Exclude all patients that have no d6MWT score (can neither be used for training nor testing)
-bdf <- bdf[!is.na(bdf$d6MWT),] # Note: 97 cases remain (30 cases removed)???
+bdf <- bdf[!is.na(bdf$d6MWT),] # Note: 97 cases remain (30 cases removed)
 
 # Number of NA's per column
 na_count <- sapply(bdf, function(y) sum(length(which(is.na(y)))))
