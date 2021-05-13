@@ -1,5 +1,5 @@
-# Script run with R version 3.5.1 (2018-07-12)
-# Last changes applied on: 31/07/2020
+# Script run with R version 4.0.5 (2021-03-31)
+# Last changes applied on: 29/4/2020
 
 ###############
 ## Libraries ##
