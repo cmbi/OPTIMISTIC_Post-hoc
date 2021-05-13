@@ -1,5 +1,5 @@
-# Script run with R version 3.5.1 (2018-07-12)
-# Last changes applied on: 30/07/2020
+# Script run with R version 4.0.5 (2021-03-31)
+# Last changes applied on: 29/04/2020
 
 # Script to calculate spearman rank's correlation coefficients among research measurements used in the OPTIMISTIC clinical trial
 # Significance assessed by pairwise t-tests based on spearman rank's rho, FDR set to 5% using Benjamini Hochberg
@@ -10,9 +10,9 @@
 ###############
 library("readxl")     #1.3.1
 library("corrplot")   #0.84
-library("psych")      #1.8.12
-library("ggplot2")    #3.1.1
-library("gridExtra")  #2.3
+library("psych")      #2.1.3
+library("ggplot2")    #3.3.3
+library("gridExtra")  #2.3 
 
 
 ############################################
