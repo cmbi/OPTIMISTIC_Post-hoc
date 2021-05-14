@@ -1,5 +1,5 @@
-Predictors;Coefficients estimates;Std. Error
-Stroop;78,33;27,3
-ASBQ;0,85;0,48
-IMQ;-1,76;0,63
-Sessiontime;0,065;0,03
+Predictors,Coefficients estimates,Std. Error
+Stroop,78.33,27.3
+ASBQ,0.85,0.48
+IMQ,-1.76,0.63
+Sessiontime,0.065,0.03
