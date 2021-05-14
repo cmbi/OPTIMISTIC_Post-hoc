@@ -16,3 +16,4 @@ Results:
 * OPH_DM1Activc_senscontrol_VIPs.csv: Variable Inclusion Probabilities of delta-DM1-Activ-c among 10 imputed datasets [control group]
 * OPH_6MWT_VIPs.csv: Variable Inclusion Probabilities of delta-6MWT predictors among 10 imputed datasets [intervention group]
 * OPH_6MWT_senscontrol_VIPs.csv: Variable Inclusion Probabilities of delta-6MWT predictors among 10 imputed datasets [control group]
+* OPH_delta_6MWT_fit: Regression fit on unimputed intervention cases using the selected predictors with avg VIPs > 60%
